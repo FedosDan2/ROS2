@@ -1,15 +1,14 @@
 name: CI
 
-on:
-  push:
-    branches: ['pr*']
-  pull_request:
-    branches: [main]
+on: [push, pull_request]
 
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w01-57866a9c98fa.tar.gz
+      COURSE_KIT_SHA256: 5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
@@ -23,21 +22,28 @@ jobs:
           echo "code=$code"        >> "$GITHUB_OUTPUT"
           echo "dir=evidence/$ref" >> "$GITHUB_OUTPUT"
 
-      # ---------- базовые проверки, нужные всем лабам ----------
-      - name: JSON валиден
+      - name: Скачать зафиксированный комплект курса
+        shell: bash
+        run: |
+          curl -fsSLo course-kit.tar.gz "$COURSE_KIT_URL"
+          printf '%s  %s\n' "$COURSE_KIT_SHA256" course-kit.tar.gz | sha256sum -c -
+          mkdir -p .course-kit
+          tar -xzf course-kit.tar.gz -C .course-kit
+
+      # ---------- БАЗОВЫЕ ПРОВЕРКИ (для ВСЕХ лаб) ----------
+      - name: Проверить JSON и совпадение версии архива
         shell: bash
         run: |
           python3 -m json.tool "${{ steps.pr.outputs.dir }}/environment.json" > /dev/null
-
-      # ---------- тесты, специфичные для ПР01 ----------
-      - name: ПР01 — граф и частота
-        if: steps.pr.outputs.code == 'PR01'
-        shell: bash
-        run: |
-          for f in doctor.txt graph.md hz.txt nodes_broken.txt turtlesim_node_info.txt turtlesim_topic_info.txt; do
-            path="${{ steps.pr.outputs.dir }}/$f"
-            if [ ! -s "$path" ]; then
-              echo "::error file=$path::отсутствует или пуст"
-              exit 1
-            fi
-          done
+          python3 -m json.tool "${{ steps.pr.outputs.dir }}/report.json" > /dev/null
+          python3 - <<'PYTHON'
+          import json
+          import os
+          from pathlib import Path
+          report = json.loads(Path('${{ steps.pr.outputs.dir }}/report.json').read_text())
+          if report['course_kit']['archive_sha256'] != os.environ['COURSE_KIT_SHA256']:
+              raise SystemExit('SHA-256 комплекта в отчёте отличается от архива CI')
+          PYTHON
+        
+          python3 .course-kit/v1/tools/check_practice.py ${{ steps.pr.outputs.code }} --submission .
+      
