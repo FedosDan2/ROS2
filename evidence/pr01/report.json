@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR01",
+  "commit": "24b5a24e506a4f87ddb06df802dfdb2cc1335189",
+  "course_kit": {
+    "version": "v1-w02",
+    "archive_sha256": "5d210c431e32418f45e2cffa9dd2028116c7a9520a36f3c7079c778cd73437a8"
+  },
+  "commands": [
+    "ros2 run turtlesim turtlesim_node",
+    "ros2 run turtlesim turtle_teleop_key",
+    "ros2 doctor --report",
+    "ros2 node list --no-daemon --spin-time 2",
+    "ros2 topic list -t",
+    "ros2 node info /turtlesim",
+    "ros2 node info /teleop_turtle",
+    "ros2 topic type /turtle1/pose",
+    "ros2 topic echo /turtle1/pose --once",
+    "timeout --signal=INT 15s ros2 topic hz /turtle1/pose",
+    "ROS_DOMAIN_ID=2 timeout 5s ros2 topic echo /turtle1/pose turtlesim_msgs/msg/Pose --once",
+    "ROS_DOMAIN_ID=1 timeout 5s ros2 topic echo /turtle1/pose turtlesim_msgs/msg/Pose --once",
+    "ROS_DOMAIN_ID=1 ros2 topic echo /turtle1/pose --once",
+    "python3 -m json.tool evidence/pr01/environment.json",
+    "python3 .course-kit/v1/tools/check_practice.py PR01 --submission ."
+  ],
+  "defect": {
+    "reproducer": "Симулятор оставлен в ROS_DOMAIN_ID=1; teleop остановлен и запущен заново в домене 2. CLI-подписчик позы запущен в 2 с явным типом turtlesim_msgs/msg/Pose и таймаутом 5 секунд. Поза не получена, exit=124; управление ↑ не изменяет координаты.",
+    "root_cause": "Участники из разных ROS_DOMAIN_ID не обнаруживают друг друга в этой конфигурации. Переменная окружения применяется при запуске процесса: export не перенастраивает работающую ноду.",
+    "proof_after": "Teleop перезапущен в домене 1, CLI возвращён в 1. Тот же timeout 5s ros2 topic echo с тем же типом получил Pose и завершился с exit=0"
+  },
+  "tests": [
+    {
+      "name": "Базовая проверка запуска",
+      "status": "passed"
+    }
+  ],
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 0,
+    "self_study_hours": 2
+  },
+  "ai_used": true,
+  "recorded_at_utc": "2026-09-15T12:22:53Z"
+}
