@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: ['pr*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - name: Определить лабу
+        id: pr
+        shell: bash
+        run: |
+          ref="${GITHUB_HEAD_REF:-$GITHUB_REF_NAME}"
+          code=$(echo "$ref" | tr '[:lower:]' '[:upper:]')
+          echo "code=$code"        >> "$GITHUB_OUTPUT"
+          echo "dir=evidence/$ref" >> "$GITHUB_OUTPUT"
+
+      # ---------- базовые проверки, нужные всем лабам ----------
+      - name: JSON валиден
+        shell: bash
+        run: |
+          python3 -m json.tool "${{ steps.pr.outputs.dir }}/environment.json" > /dev/null
+
+      # ---------- тесты, специфичные для ПР01 ----------
+      - name: ПР01 — граф и частота
+        if: steps.pr.outputs.code == 'PR01'
+        shell: bash
+        run: |
+          for f in doctor.txt graph.md hz.txt nodes_broken.txt turtlesim_node_info.txt turtlesim_topic_info.txt; do
+            path="${{ steps.pr.outputs.dir }}/$f"
+            if [ ! -s "$path" ]; then
+              echo "::error file=$path::отсутствует или пуст"
+              exit 1
+            fi
+          done
