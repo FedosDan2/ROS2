@@ -1,0 +1,14 @@
+turtlesim_msgs/msg/Pose
+
+x: 6.328053951263428
+y: 6.157889366149902
+theta: 0.4256294071674347
+linear_velocity: 0.0
+angular_velocity: 0.0
+---
+x: 8.1641845703125
+y: 6.990283966064453
+theta: 0.4256294071674347
+linear_velocity: 0.0
+angular_velocity: 0.0
+---
