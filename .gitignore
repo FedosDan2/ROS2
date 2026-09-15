@@ -2,6 +2,6 @@
 /install
 /log
 /src
-/.course-kit
-robotics-course-kit-v1.tar.gz
-robotics-course-kit-v1.tar.gz.sha256.txt
+.course-kit/
+robotics-course-kit-*.tar.gz
+robotics-course-kit-*.sha256.txt
