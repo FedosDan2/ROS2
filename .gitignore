@@ -1,7 +1,13 @@
+/src/*
+!/src/turtle_bringup
+/src/turtle_bringup/*
+!/src/turtle_bringup/launch
+/src/turtle_bringup/launch/*
+!/src/turtle_bringup/launch/sim.launch.py
+
 /build
 /install
 /log
-/src
 .course-kit/
 robotics-course-kit-*.tar.gz
 robotics-course-kit-*.sha256.txt
