@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR02",
+  "commit": "a4a3fc55829f894b119d56ec0892cdcd7d27b0f3",
+  "course_kit": {
+    "version": "v1-w03",
+    "archive_sha256": "2bd3098044c5444cf6bd11ca4ab051d08984b807d8eb5ea6f50c1714820c0b19"
+  },
+  "commands": [
+    "colcon build --symlink-install --packages-select turtle_bringup",
+    "ros2 launch turtle_bringup sim.launch.py",
+    "ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear: {x: 1.0}, angular: {z: 0.5}}'",
+    "ros2 topic info /cmd_vel --verbose",
+    "ros2 topic info /turtle1/cmd_vel --verbose"
+  ],
+  "tests": [
+    {"name": "colcon build пустого пакета", "status": "passed"},
+    {"name": "ros2 pkg prefix turtle_bringup найден в install", "status": "passed"},
+    {"name": "ros2 launch запускает turtlesim", "status": "passed"},
+    {"name": "Twist в /turtle1/cmd_vel - turtle двигается", "status": "passed"},
+    {"name": "Twist в /cmd_vel - turtle не двигается", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "ros2 topic pub --rate 1 /cmd_vel geometry_msgs/msg/Twist '{linear:{x:1.0},angular:{z:0.5}}' — не двигается",
+    "root_cause": "turtlesim подписан на /turtle1/cmd_vel, а не на /cmd_vel. ",
+    "proof_after": "ros2 topic pub --rate 1 /turtle1/cmd_vel geometry_msgs/msg/Twist '{linear:{x:1.0},angular:{z:0.5}}' — двигается"
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 3
+  },
+  "ai_used": true
+}
