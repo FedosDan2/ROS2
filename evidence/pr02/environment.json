@@ -1,0 +1,19 @@
+{
+  "run_mode": "native",
+  "os": "Ubuntu 26.04.1 LTS",
+  "architecture": "x86_64",
+  "ros_distro": "lyrical",
+  "gazebo": {
+    "version": "10.5.0"
+  },
+  "rmw_implementation": "rmw_fastrtps_cpp",
+  "ros_domain_id": 1,
+  "experiment_domains": {
+    "working": 1,
+    "broken": 2
+  },
+  "docker_image_digest": null,
+  "network": "Нативный сетевой стек Ubuntu; все ноды и CLI в одной ОС",
+  "gui": "Нативный Wayland/X11; окно turtlesim отображается напрямую",
+  "recorded_at_utc": "2026-09-25T14:37:58Z"
+}
