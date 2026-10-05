@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "practice_id": "replace-with-practice-id",
+  "commit": "replace-with-implementation-commit",
+  "course_kit": {
+    "version": "replace-with-course-kit-version",
+    "archive_sha256": "replace-with-64-character-sha256"
+  },
+  "commands": ["replace-with-executed-command"],
+  "tests": [{"name": "replace-with-test-name", "status": "passed"}],
+  "defect": {
+    "reproducer": "Команда и наблюдаемый симптом до исправления",
+    "root_cause": "Причинное объяснение",
+    "proof_after": "Команда и результат после исправления"
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true
+  },
+  "time": {
+    "contact_academic_hours": "replace-with-number",
+    "self_study_hours": "replace-with-number"
+  },
+  "ai_used": false
+}
