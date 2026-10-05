@@ -1,6 +1,6 @@
 # Использование ИИ
 
 - Использован ИИ: да, DeepSeek, QWen.
-- Затронутые файлы: README, workflow GitHub, graph.md, environment.json и эта декларация.
+- Затронутые файлы: README.md, demo.md, sim.launch.py, patrol.py, report.json и эта декларация.
 - Помощь: подготовка команд, выполнение опыта через терминалы, оформление
   фактических результатов и локальная проверка workflow.
