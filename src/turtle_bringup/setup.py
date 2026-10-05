@@ -1,5 +1,6 @@
-from setuptools import find_packages, setup
 from glob import glob
+
+from setuptools import find_packages, setup
 
 package_name = 'turtle_bringup'
 
@@ -17,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='FedosDan2',
     maintainer_email='f.danilov@g.nsu.ru',
-    description='TODO: Package description',
+    description='PR02',
     license='Apache-2.0',
     extras_require={
         'test': [
