@@ -1,0 +1,13 @@
+package.xml
+setup.cfg
+setup.py
+launch/sim.launch.py
+resource/turtle_bringup
+turtle_bringup/__init__.py
+turtle_bringup/py.typed
+turtle_bringup.egg-info/PKG-INFO
+turtle_bringup.egg-info/SOURCES.txt
+turtle_bringup.egg-info/dependency_links.txt
+turtle_bringup.egg-info/requires.txt
+turtle_bringup.egg-info/top_level.txt
+turtle_bringup.egg-info/zip-safe
