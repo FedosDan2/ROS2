@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "practice_id": "PR04",
-  "commit": "5e1cd99929a716bc6dbed61e177d47ec5b62c5ba",
+  "commit": "27bc47b5bc807857f4d9fa7c9fd39e72f2e71d24",
   "course_kit": {
     "version": "v1-w05",
     "archive_sha256": "bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197"
@@ -17,7 +17,7 @@
     "ros2 param get /patrol publish_hz"
   ],
   "tests": [
-    {"name": "test_copyright", "status": "SKIPPED"},
+    {"name": "test_copyright", "status": "skipped"},
     {"name": "test_flake8", "status": "passed"},
     {"name": "test_missing_pose_returns_zero_twist", "status": "passed"},
     {"name": "test_normal_pose_uses_parameters", "status": "passed"},
@@ -30,28 +30,11 @@
     {"name": "test_pep257", "status": "passed"},
     {"name": "test_xmllint", "status": "passed"}
   ],
-  "defect": [{
+  "defect": {
     "reproducer": "'ros2 run patrol patrol' — не двигается",
     "root_cause": "подписан на /turtle1/cmd_vel, а не на /cmd_vel - имена топиков не совпадают ",
     "proof_after": "'ros2 run patrol patrol --ros-args -r cmd_vel:=/turtle1/cmd_vel' — двигается"
-  }, 
-  {
-    "reproducer": "не валидируем `publish_hz` в `ROS2/src/patrol/patrol/patrol.py` - можем отправлять `publish_hz` не входящий в интервал => error: ZeroDivision ",
-    "root_cause": "нет валидации `publish_hz`",
-    "proof_after": "добавляем валидацию на `publish_hz`"
   },
-  {
-    "reproducer": "не валидируем `linear_speed` в `ROS2/src/patrol/patrol/patrol.py` - можем отправлять `linear_speed` не входящий в интервал => error",
-    "root_cause": "нет валидации `linear_speed`",
-    "proof_after": "добавляем валидацию на `linear_speed`"
-  },
-  {
-    "reproducer": "не валидируем `turn_rate` в `ROS2/src/patrol/patrol/patrol.py` - можем отправлять `turn_rate` не входящий в интервал => error",
-    "root_cause": "нет валидации `turn_rate`",
-    "proof_after": "добавляем валидацию на `turn_rate`"
-  }
-
-],
   "claims": {
     "public_tests_passed": true,
     "defect_reproduced": true,
