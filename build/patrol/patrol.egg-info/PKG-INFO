@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: patrol
+Version: 0.0.0
+Summary: PR03 first node: pose and command
+Maintainer: FedosDan2
+Maintainer-email: f.danilov@g.nsu.ru
+License: Apache-2.0
+Requires-Dist: setuptools
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Dynamic: license
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: summary
