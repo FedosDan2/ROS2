@@ -16,7 +16,7 @@ setup(
     zip_safe=True,
     maintainer='FedosDan2',
     maintainer_email='f.danilov@g.nsu.ru',
-    description='PR03 first node: pose and command',
+    description='PR04',
     license='Apache-2.0',
     extras_require={
         'test': [
