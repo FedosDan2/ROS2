@@ -1,0 +1,5 @@
+[-1791565070793668864.000s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/fedosdan2/Study/ROS2/install/turtle_bringup' in the environment variable AMENT_PREFIX_PATH doesn't exist
+Starting >>> patrol
+Finished <<< patrol [1.37s]
+
+Summary: 1 package finished [1.56s]
