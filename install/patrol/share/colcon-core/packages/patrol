@@ -1,1 +1,1 @@
-geometry_msgs:rclpy:turtlesim_msgs
+geometry_msgs:rcl_interfaces:rclpy:turtlesim_msgs
