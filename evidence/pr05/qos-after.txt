@@ -1,0 +1,70 @@
+=== Живой поток: best_effort echo (ожидаем доставку) ===
+x: 6.441504955291748
+y: 8.613204002380371
+theta: 2.568000078201294
+linear_velocity: 0.5
+angular_velocity: 0.30000001192092896
+---
+=== ros2 topic info /robot_a/sensor_pose -v ===
+Type: turtlesim_msgs/msg/Pose
+
+Publisher count: 1
+
+Node name: pose_relay
+Node namespace: /robot_a
+Topic type: turtlesim_msgs/msg/Pose
+Topic type hash: RIHS01_37b07ace09a0ed2c5b774b1410dec972dfd1d292de5656ebc2b075ac646e09c8
+Endpoint type: PUBLISHER
+GID: 01.0f.bf.b1.c9.f4.aa.d6.00.00.00.00.00.00.14.03
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+Subscription count: 1
+
+Node name: pose_relay
+Node namespace: /robot_a
+Topic type: turtlesim_msgs/msg/Pose
+Topic type hash: RIHS01_37b07ace09a0ed2c5b774b1410dec972dfd1d292de5656ebc2b075ac646e09c8
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.bf.b1.c9.f4.aa.d6.00.00.00.00.00.00.15.04
+QoS profile:
+  Reliability: BEST_EFFORT
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+
+
+=== Replay: reliable subscriber (ожидаем отказ) ===
+[WARN] [1791647044.805091578] [_ros2cli_129596]: New publisher discovered on topic '/robot_a/sensor_pose', offering incompatible QoS. No messages will be received from it. Last incompatible policy: RELIABILITY
+=== Replay: best_effort subscriber (ожидаем доставку) ===
+x: 7.167952537536621
+y: 7.570274829864502
+theta: 1.785599946975708
+linear_velocity: 0.5
+angular_velocity: 0.30000001192092896
+
+
+<ros2 bag info evidence/pr05/bag>
+Files:             0_bag_2026_10_10-22_28_48.mcap
+Bag size:          37.6 KiB
+Storage id:        mcap
+ROS Distro:        lyrical
+Duration:          7.551737972s
+Start:             Oct 10 2026 22:28:48.586757670 (1791646128.586757670)
+End:               Oct 10 2026 22:28:56.138495642 (1791646136.138495642)
+Messages:          473
+Topic information: Topic: /robot_a/sensor_pose | Type: turtlesim_msgs/msg/Pose | Count: 473| Serialization Format: cdr
+Services:          0
+Service information: 
+Actions:           0
+Action information: 
