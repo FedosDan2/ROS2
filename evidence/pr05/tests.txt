@@ -1,0 +1,16 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.4, pytest-9.0.2, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/fedosdan2/Study/ROS2/src/course_bringup
+plugins: ament_lint-0.20.6, ament_xmllint-0.20.6, launch_testing_ros-0.29.9, ament_copyright-0.20.6, ament_pep257-0.20.6, ament_flake8-0.20.6, ament_mypy-0.20.6, launch_testing-3.9.8, colcon-core-0.21.3, cov-5.0.0, typeguard-4.4.4
+collecting ... collected 7 items
+
+src/course_bringup/test/test_copyright.py::test_copyright SKIPPED (N...) [ 14%]
+src/course_bringup/test/test_flake8.py::test_flake8 PASSED               [ 28%]
+src/course_bringup/test/test_pep257.py::test_pep257 PASSED               [ 42%]
+src/course_bringup/test/test_qos.py::test_build_qos_reliable PASSED      [ 57%]
+src/course_bringup/test/test_qos.py::test_build_qos_best_effort PASSED   [ 71%]
+src/course_bringup/test/test_qos.py::test_build_qos_rejects_unknown PASSED [ 85%]
+src/course_bringup/test/test_xmllint.py::test_xmllint PASSED             [100%]
+
+========================= 6 passed, 1 skipped in 7.54s =========================
