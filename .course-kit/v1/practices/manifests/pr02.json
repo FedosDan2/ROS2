@@ -1,0 +1,17 @@
+{
+  "id": "PR02",
+  "required_paths": [
+    "evidence/pr02/commands.md",
+    "evidence/pr02/types.md",
+    "src/turtle_bringup/package.xml",
+    "src/turtle_bringup/setup.py",
+    "src/turtle_bringup/launch/sim.launch.py",
+    "evidence/pr02/build-empty.txt",
+    "evidence/pr02/build.txt"
+  ],
+  "required_claims": [
+    "public_tests_passed",
+    "defect_reproduced",
+    "defect_fixed"
+  ]
+}
