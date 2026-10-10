@@ -1,0 +1,13 @@
+{
+  "id": "PR03",
+  "required_paths": [
+    "src/patrol/package.xml",
+    "evidence/pr03/demo.md",
+    "evidence/pr03/tests.txt"
+  ],
+  "required_claims": [
+    "public_tests_passed",
+    "defect_reproduced",
+    "defect_fixed"
+  ]
+}

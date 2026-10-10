@@ -1,0 +1,1 @@
+{"id":"PR01","required_paths":["evidence/pr01/doctor.txt","evidence/pr01/graph.md","evidence/pr01/environment.json"],"required_claims":["public_tests_passed","defect_reproduced","defect_fixed"]}
