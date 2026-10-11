@@ -1,1 +1,0 @@
-bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197  robotics-course-kit-v1.tar.gz
