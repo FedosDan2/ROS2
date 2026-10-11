@@ -27,5 +27,5 @@ setup(
         'console_scripts': [
             'patrol = patrol.patrol:main'
         ],
-    },
+    }
 )
