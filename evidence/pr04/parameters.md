@@ -193,7 +193,29 @@ timeout 10 ros2 topic hz /turtle1/cmd_vel --window 100
 ```
 
 ```text
-[ВСТАВЬ: Set parameter successful / Double value is: 5.0 / average rate ≈ 5.00x]
+Set parameter successful
+Double value is: 5.0
+average rate: 5.001
+        min: 0.200s max: 0.200s std dev: 0.00031s window: 9
+average rate: 4.999
+        min: 0.200s max: 0.201s std dev: 0.00028s window: 19
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00027s window: 29
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00026s window: 39
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 49
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 59
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 69
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 79
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 89
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 99
+
 ```
 
 Теперь пробуем недопустимый ноль:
@@ -203,7 +225,7 @@ ros2 param set /patrol publish_hz 0.0
 ```
 
 ```text
-[ВСТАВЬ: Setting parameter failed: publish_hz must be in [1.0, 30.0]]
+Setting parameter failed: publish_hz must be in [1.0, 30.0]
 ```
 
 Проверяем, что старое значение сохранилось и нода не упала:
@@ -213,7 +235,7 @@ ros2 param get /patrol publish_hz
 ```
 
 ```text
-[ВСТАВЬ: Double value is: 5.0]
+Double value is: 5.0
 ```
 
 Проверяем, что поток команд не изменился (частота осталась 5 Гц, а не стала 0 или не удвоилась из-за двух таймеров):
@@ -223,7 +245,28 @@ timeout 10 ros2 topic hz /turtle1/cmd_vel --window 100
 ```
 
 ```text
-[ВСТАВЬ: average rate ≈ 5.00x]
+Set parameter successful
+Double value is: 5.0
+average rate: 5.001
+        min: 0.200s max: 0.200s std dev: 0.00031s window: 9
+average rate: 4.999
+        min: 0.200s max: 0.201s std dev: 0.00028s window: 19
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00027s window: 29
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00026s window: 39
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 49
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 59
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 69
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 79
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 89
+average rate: 5.000
+        min: 0.200s max: 0.201s std dev: 0.00025s window: 99
 ```
 
 Допустимое изменение обратно подтверждает, что валидация не ломает рабочий путь:
@@ -235,31 +278,28 @@ timeout 10 ros2 topic hz /turtle1/cmd_vel --window 100
 ```
 
 ```text
-[ВСТАВЬ: Double value is: 10.0 / average rate ≈ 10.00x]
+Set parameter successful
+Double value is: 10.0
+average rate: 10.001
+        min: 0.100s max: 0.100s std dev: 0.00022s window: 9
+average rate: 9.999
+        min: 0.100s max: 0.100s std dev: 0.00020s window: 19
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00021s window: 29
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00021s window: 39
+average rate: 10.001
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 49
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 59
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 69
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 79
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 89
+average rate: 10.000
+        min: 0.100s max: 0.101s std dev: 0.00020s window: 99
 ```
 
 Вывод: ноль отклонён до изменения таймера; старая частота 5 Гц и активное состояние сохранены; допустимое значение реально меняет поток. Дефект из предыдущей стадии устранён.
-
-## Готовый сервис `/clear`
-
-```bash
-ros2 service call /clear std_srvs/srv/Empty "{}"
-```
-
-```text
-[ВСТАВЬ РЕАЛЬНЫЙ ВЫВОД, success=True]
-```
-
-Сервис очищает рисунок черепахи.
-
-## Готовый action `/turtle1/rotate_absolute`
-
-```bash
-ros2 action list -t
-```
-
-```text
-[ВСТАВЬ РЕАЛЬНЫЙ ВЫВОД, где видно /turtle1/rotate_absolute: turtlesim/action/RotateAbsolute]
-```
-
-Отличие запроса и цели: сервис `/clear` — это запрос‑ответ, клиент вызывает операцию и сразу получает ответ об успехе или ошибке. Action `/turtle1/rotate_absolute` — это цель долгосрочной задачи: сервер принимает goal, может отправлять feedback во время выполнения, возвращает итоговый result и поддерживает отмену.
