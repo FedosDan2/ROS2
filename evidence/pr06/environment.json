@@ -15,5 +15,5 @@
   "docker_image_digest": null,
   "network": "Нативный сетевой стек Ubuntu; все ноды и CLI в одной ОС",
   "gui": "Нативный Wayland/X11; окно turtlesim отображается напрямую",
-  "recorded_at_utc": "2026-10-10T16:05:21Z"
+  "recorded_at_utc": "2026-10-20T18:46:55Z"
 }
