@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w05-bca214e3de6f.tar.gz
-      COURSE_KIT_SHA256: bca214e3de6f90f9513049dfa0f36fee65ad834da502dc3f3f8fb443517b5197
+      COURSE_KIT_URL: https://ros.lms.ci.nsu.ru/downloads/robotics-course-kit-v1-w07-9b7fdd5424d3.tar.gz
+      COURSE_KIT_SHA256: 9b7fdd5424d3d97e47d51dbe23064934585e62135dc2902844dd679529bda929
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
