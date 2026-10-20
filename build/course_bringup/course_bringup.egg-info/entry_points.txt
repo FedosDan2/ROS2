@@ -1,2 +1,0 @@
-[console_scripts]
-pose_relay = course_bringup.pose_relay:main

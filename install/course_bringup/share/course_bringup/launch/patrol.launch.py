@@ -1,1 +1,0 @@
-/home/fedosdan2/Study/ROS2/build/course_bringup/launch/patrol.launch.py
