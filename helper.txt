@@ -1,0 +1,92 @@
+=== 0. ОКРУЖЕНИЕ И СБОРКА ===
+cd ~/Study/ROS2
+source /opt/ros/lyrical/setup.bash
+colcon build --symlink-install --packages-select course_description
+source install/setup.bash
+
+
+=== 1. ТЕСТЫ ===
+mkdir -p evidence/pr06
+python3 -m pytest src/course_description/test -v | tee evidence/pr06/tests.txt
+
+
+=== 2. МОДЕЛЬ ЧЕК (Xacro -> URDF -> Check) ===
+{
+  echo '## xacro'
+  xacro src/course_description/urdf/vehicle.urdf.xacro > /tmp/vehicle.urdf
+  echo 'OK'
+  echo ''
+  echo '## check_urdf'
+  check_urdf /tmp/vehicle.urdf
+}
+
+
+=== 3. ЗАПУСК ROBOT STATE PUBLISHER + RVIZ ===
+# Терминал 1: Запуск ноды и визуализатора
+ros2 launch course_description state_publisher.launch.py rviz:=true
+
+# В RViz проверить:
+# 1. Global Options -> Fixed Frame: base_link
+# 2. Displays -> RobotModel (Topic: /robot_description)
+# 3. Displays -> TF (Frames: base_link, camera_link, lidar_link, imu_link)
+
+
+=== 4. ПРОВЕРКА ФИКСИРОВАННЫХ СВЯЗЕЙ (TF_STATIC) ===
+# Терминал 2: Диагностика одной связи
+ros2 run tf2_ros tf2_echo base_link lidar_link
+ros2 run tf2_ros tf2_echo base_link camera_link
+ros2 run tf2_ros tf2_echo base_link imu_link
+
+# Ожидаемый вывод для сенсоров:
+# Translation: [0.280, 0.000, 0.380]
+# Rotation:    [0.0, 0.0, 0.0, 1.0]
+
+
+=== 5. ДЕМОНСТРАЦИЯ ПОДВИЖНЫХ ЗВЕНЬЕВ (JOINT_STATES) ===
+# Терминал 3: Публикация нулевых углов суставов, чтобы колёса появились в TF
+# (Не обязательно для checker, но полезно для защиты)
+ros2 topic pub -r 10 /joint_states sensor_msgs/msg/JointState \
+  "{header: {stamp: now, frame_id: ''}, name: [front_left_steering_joint, front_right_steering_joint, front_left_wheel_joint, front_right_wheel_joint, rear_left_wheel_joint, rear_right_wheel_joint], position: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], velocity: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], effort: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]}"
+
+# Проверить появление новых фреймов в RViz или через:
+ros2 run tf2_tools view_frames
+
+
+=== 6. QOS ПРОВЕРКА (/TF_STATIC) ===
+# ВАЖНО: Убедиться, что работает только один robot_state_publisher.
+# ros2 node list должен показать /robot_state_publisher один раз.
+
+# Терминал 2: Генерация qos-before.txt (дефект не нужен, это проверка профиля)
+# Здесь мы фиксируем профиль издателя и поведение позднего подписчика
+
+{
+  echo '## topic info /tf_static'
+  ros2 topic info /tf_static --verbose
+
+  echo ''
+  echo '## echo transient_local (ожидаем данные)'
+  timeout 4 ros2 topic echo /tf_static --once \
+    --qos-durability transient_local --qos-reliability reliable
+  echo "exit=$?"
+
+  echo ''
+  echo '## echo volatile (ожидаем таймаут)'
+  timeout 4 ros2 topic echo /tf_static --once \
+    --qos-durability volatile --qos-reliability reliable
+  echo "exit=$?"
+} > evidence/pr06/tf-qos.txt 2>&1
+
+# Дописать текстовое объяснение
+cat >> evidence/pr06/tf-qos.txt <<'EOF'
+
+## Вывод
+
+/tf_static публикуется RELIABLE и TRANSIENT_LOCAL, поэтому поздний
+подписчик с тем же профилем получает сохранённое последнее сообщение.
+Подписчик с VOLATILE не получает исторические статические преобразования.
+
+/tf используется для меняющихся преобразований и обычно публикуется
+RELIABLE + VOLATILE: старые трансформации не нужны, важны актуальные.
+
+=== 10. CHECKER ===
+python3 .course-kit/v1/tools/check_practice.py PR06 --submission .

@@ -1,0 +1,15 @@
+[0.659s] Invoking command in '/home/fedosdan2/Study/ROS2/build/course_description': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/fedosdan2/Study/ROS2/build/course_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fedosdan2/Study/ROS2/install/course_description/lib/python3.14/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/fedosdan2/Study/ROS2/build/course_description/build --no-deps symlink_data
+[0.842s] running develop
+[0.946s] running egg_info
+[0.957s] writing course_description.egg-info/PKG-INFO
+[0.957s] writing dependency_links to course_description.egg-info/dependency_links.txt
+[0.957s] writing requirements to course_description.egg-info/requires.txt
+[0.957s] writing top-level names to course_description.egg-info/top_level.txt
+[0.980s] reading manifest file 'course_description.egg-info/SOURCES.txt'
+[0.981s] writing manifest file 'course_description.egg-info/SOURCES.txt'
+[0.992s] running build_ext
+[0.992s] Creating /home/fedosdan2/Study/ROS2/install/course_description/lib/python3.14/site-packages/course-description.egg-link (link to .)
+[0.993s] 
+[0.993s] Installed /home/fedosdan2/Study/ROS2/build/course_description
+[0.993s] running symlink_data
+[1.015s] Invoked command in '/home/fedosdan2/Study/ROS2/build/course_description' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/fedosdan2/Study/ROS2/build/course_description/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/fedosdan2/Study/ROS2/install/course_description/lib/python3.14/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/fedosdan2/Study/ROS2/build/course_description/build --no-deps symlink_data

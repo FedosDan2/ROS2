@@ -1,0 +1,22 @@
+running develop
+running egg_info
+creating course_description.egg-info
+writing course_description.egg-info/PKG-INFO
+writing dependency_links to course_description.egg-info/dependency_links.txt
+writing requirements to course_description.egg-info/requires.txt
+writing top-level names to course_description.egg-info/top_level.txt
+writing manifest file 'course_description.egg-info/SOURCES.txt'
+reading manifest file 'course_description.egg-info/SOURCES.txt'
+writing manifest file 'course_description.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/fedosdan2/Study/ROS2/install/course_description/lib/python3.14/site-packages/course-description.egg-link (link to .)
+
+Installed /home/fedosdan2/Study/ROS2/build/course_description
+running symlink_data
+creating /home/fedosdan2/Study/ROS2/install/course_description/share/ament_index/resource_index/packages
+symbolically linking /home/fedosdan2/Study/ROS2/build/course_description/resource/course_description -> /home/fedosdan2/Study/ROS2/install/course_description/share/ament_index/resource_index/packages
+symbolically linking /home/fedosdan2/Study/ROS2/build/course_description/package.xml -> /home/fedosdan2/Study/ROS2/install/course_description/share/course_description
+creating /home/fedosdan2/Study/ROS2/install/course_description/share/course_description/urdf
+symbolically linking /home/fedosdan2/Study/ROS2/build/course_description/urdf/vehicle.urdf.xacro -> /home/fedosdan2/Study/ROS2/install/course_description/share/course_description/urdf
+creating /home/fedosdan2/Study/ROS2/install/course_description/share/course_description/launch
+symbolically linking /home/fedosdan2/Study/ROS2/build/course_description/launch/state_publisher.launch.py -> /home/fedosdan2/Study/ROS2/install/course_description/share/course_description/launch

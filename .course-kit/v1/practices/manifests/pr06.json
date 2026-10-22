@@ -1,0 +1,14 @@
+{
+  "id": "PR06",
+  "required_paths": [
+    "src/**/*.urdf.xacro",
+    "evidence/pr06/frames.md",
+    "evidence/pr06/model-check.txt",
+    "evidence/pr06/tf-qos.txt"
+  ],
+  "required_claims": [
+    "public_tests_passed",
+    "defect_reproduced",
+    "defect_fixed"
+  ]
+}

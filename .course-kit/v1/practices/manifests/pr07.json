@@ -1,0 +1,19 @@
+{
+  "id": "PR07",
+  "required_paths": [
+    "src/**/*.sdf",
+    "src/**/bridge*.yaml",
+    "evidence/pr07/sensors.json",
+    "evidence/pr07/headless.txt",
+    "evidence/pr07/bag-info.txt",
+    "evidence/pr07/odom-adapter.md"
+  ],
+  "required_claims": [
+    "public_tests_passed",
+    "defect_reproduced",
+    "defect_fixed",
+    "headless_verified",
+    "recording_verified",
+    "odometry_tf_owned"
+  ]
+}
