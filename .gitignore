@@ -7,3 +7,4 @@ robotics-course-kit-*.sha256.txt
 course-kit.tar.gz
 helper.txt
 /config
+/fixtures
