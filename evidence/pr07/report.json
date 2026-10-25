@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "practice_id": "PR07",
-  "commit": "SHA_КОММИТА_РЕАЛИЗАЦИИ",
+  "commit": "5473da62df3de12a8a7778f7266852f2065ec318",
   "course_kit": {
     "version": "v1-w07",
-    "archive_sha256": "SHA_АРХИВА_COURSE_KIT_W07"
+    "archive_sha256": "9b7fdd5424d3d97e47d51dbe23064934585e62135dc2902844dd679529bda929"
   },
   "commands": [
     "source /opt/ros/lyrical/setup.bash",
