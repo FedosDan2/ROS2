@@ -1,0 +1,33 @@
+=== Defect Reproduction ===
+Modified bridge_broken.yaml: changed IMU direction from GZ_TO_ROS to ROS_TO_GZ
+
+=== ROS side: topic info ===
+Type: sensor_msgs/msg/Imu
+
+Publisher count: 0
+
+Subscription count: 1
+
+Node name: ros_gz_bridge
+Node namespace: /
+Topic type: sensor_msgs/msg/Imu
+Topic type hash: RIHS01_7d9a00ff131080897a5ec7e26e315954b8eae3353c3f995c55faf71574000b5b
+Endpoint type: SUBSCRIPTION
+GID: 01.0f.8a.df.e4.71.5b.05.00.00.00.00.00.00.17.04
+QoS profile:
+  Reliability: RELIABLE
+  History (Depth): KEEP_LAST (10)
+  Durability: VOLATILE
+  Lifespan: Infinite
+  Deadline: Infinite
+  Liveliness: AUTOMATIC
+  Liveliness lease duration: Infinite
+
+=== ROS side: echo attempt ===
+!rclpy.ok()
+exit=124
+=== Gazebo side: topic info ===
+Publishers [Address, Message Type]:
+  tcp://172.19.0.1:37445, gz.msgs.IMU
+  tcp://172.19.0.1:46409, gz.msgs.IMU
+No subscribers on topic [/vehicle/imu]

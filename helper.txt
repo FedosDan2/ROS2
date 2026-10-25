@@ -1,5 +1,6 @@
 === 0. ОКРУЖЕНИЕ И СБОРКА ===
 cd ~/Study/ROS2
+conda deactivate 2>/dev/null || true
 source /opt/ros/lyrical/setup.bash
 colcon build --symlink-install --packages-select course_description
 source install/setup.bash
@@ -18,7 +19,9 @@ python3 -m pytest src/course_description/test -v | tee evidence/pr06/tests.txt
   echo ''
   echo '## check_urdf'
   check_urdf /tmp/vehicle.urdf
-}
+} > evidence/pr06/model-check.txt 2>&1
+
+cat evidence/pr06/model-check.txt
 
 
 === 3. ЗАПУСК ROBOT STATE PUBLISHER + RVIZ ===
@@ -51,14 +54,14 @@ ros2 topic pub -r 10 /joint_states sensor_msgs/msg/JointState \
 # Проверить появление новых фреймов в RViz или через:
 ros2 run tf2_tools view_frames
 
+# Остановить публикацию через Ctrl+C
+
 
 === 6. QOS ПРОВЕРКА (/TF_STATIC) ===
 # ВАЖНО: Убедиться, что работает только один robot_state_publisher.
 # ros2 node list должен показать /robot_state_publisher один раз.
 
-# Терминал 2: Генерация qos-before.txt (дефект не нужен, это проверка профиля)
-# Здесь мы фиксируем профиль издателя и поведение позднего подписчика
-
+# Терминал 2: Генерация tf-qos.txt
 {
   echo '## topic info /tf_static'
   ros2 topic info /tf_static --verbose
@@ -87,6 +90,71 @@ cat >> evidence/pr06/tf-qos.txt <<'EOF'
 
 /tf используется для меняющихся преобразований и обычно публикуется
 RELIABLE + VOLATILE: старые трансформации не нужны, важны актуальные.
+EOF
 
-=== 10. CHECKER ===
+cat evidence/pr06/tf-qos.txt
+
+
+=== 7. КОММИТ РЕАЛИЗАЦИИ ===
+git add src/course_description .gitignore
+git commit -m "PR06: course_description xacro, launch and structure tests"
+IMPL_SHA=$(git rev-parse HEAD)
+echo "Implementation SHA: $IMPL_SHA"
+
+
+=== 8. СТАДИЯ «СЛОМАТЬ» (ОТДЕЛЬНАЯ ВЕТКА) ===
+git switch -c pr06-defect
+
+# Изменить parent у лидара в Xacro
+sed -i '/<joint name="lidar_joint"/,/\/joint/s/<parent link="base_link" \/>/<parent link="camera_link" \/>/' src/course_description/urdf/vehicle.urdf.xacro
+
+# Пересобрать и показать падающий тест
+colcon build --symlink-install --packages-select course_description
+source install/setup.bash
+python3 -m pytest src/course_description/test/test_urdf_structure.py::test_sensor_parents_are_base_link -v
+
+# Закоммить дефект
+git add src/course_description/urdf/vehicle.urdf.xacro
+git commit -m "PR06 defect: lidar parent changed to camera_link"
+
+
+=== 9. СТАДИЯ «ДОКАЗАТЬ» (ВОЗВРАТ В ИСПРАВЛЕННУЮ ВЕТКУ) ===
+git switch pr06
+colcon build --symlink-install --packages-select course_description
+source install/setup.bash
+
+# Проверить, что тесты снова зелёные
+python3 -m pytest src/course_description/test -v
+
+# Проверить TF
+ros2 launch course_description state_publisher.launch.py rviz:=true
+# В другом терминале:
+ros2 run tf2_ros tf2_echo base_link lidar_link
+# Ожидаемо: Translation: [0.280, 0.000, 0.380]
+
+
+=== 10. REPORT.JSON ===
+RECORDED_AT_UTC=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+cat > evidence/pr06/report.json <<JSONEOF
+{
+  "commit": "$IMPL_SHA",
+  "recorded_at_utc": "$RECORDED_AT_UTC",
+  "ai_used": true,
+  "public_tests_passed": true,
+  "defect_reproduced": true,
+  "defect_fixed": true
+}
+JSONEOF
+
+python3 -m json.tool evidence/pr06/report.json
+
+
+=== 11. КОММИТ EVIDENCE ===
+git add evidence/pr06 AI_USAGE.md
+git commit -m "PR06: add frames, model check, tf qos evidence and report"
+REPORT_SHA=$(git rev-parse HEAD)
+echo "Report SHA: $REPORT_SHA"
+
+
+=== 12. CHECKER ===
 python3 .course-kit/v1/tools/check_practice.py PR06 --submission .

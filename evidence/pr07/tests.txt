@@ -1,0 +1,17 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.4, pytest-9.0.2, pluggy-1.6.0 -- /usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/fedosdan2/Study/ROS2/src/course_simulation
+plugins: ament_lint-0.20.6, ament_xmllint-0.20.6, launch_testing_ros-0.29.9, ament_copyright-0.20.6, ament_pep257-0.20.6, ament_flake8-0.20.6, ament_mypy-0.20.6, launch_testing-3.9.8, colcon-core-0.21.3, cov-5.0.0, typeguard-4.4.4
+collecting ... collected 8 items
+
+src/course_simulation/test/test_ackermann_adapter.py::test_straight_motion PASSED [ 12%]
+src/course_simulation/test/test_ackermann_adapter.py::test_turning_motion PASSED [ 25%]
+src/course_simulation/test/test_ackermann_adapter.py::test_zero_speed PASSED [ 37%]
+src/course_simulation/test/test_ackermann_adapter.py::test_clamping_speed_and_angle PASSED [ 50%]
+src/course_simulation/test/test_ackermann_adapter.py::test_nan_speed PASSED [ 62%]
+src/course_simulation/test/test_ackermann_adapter.py::test_inf_steering PASSED [ 75%]
+src/course_simulation/test/test_ackermann_adapter.py::test_stale_command PASSED [ 87%]
+src/course_simulation/test/test_ackermann_adapter.py::test_fresh_command PASSED [100%]
+
+============================== 8 passed in 0.56s ===============================

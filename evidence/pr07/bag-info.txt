@@ -1,0 +1,20 @@
+
+Files:             0_pr07-sensors_2026_10_26-02_58_37.mcap
+Bag size:          772.5 MiB
+Storage id:        mcap
+ROS Distro:        lyrical
+Duration:          57.651000000s
+Start:             Jan  1 1970 07:04:22.717000000 (262.717000000)
+End:               Jan  1 1970 07:05:20.368000000 (320.368000000)
+Messages:          76678
+Topic information: Topic: /clock | Type: rosgraph_msgs/msg/Clock | Count: 57652 | Serialization Format: cdr
+                   Topic: /tf | Type: tf2_msgs/msg/TFMessage | Count: 5766 | Serialization Format: cdr
+                   Topic: /tf_static | Type: tf2_msgs/msg/TFMessage | Count: 1 | Serialization Format: cdr
+                   Topic: /vehicle/camera/image_raw | Type: sensor_msgs/msg/Image | Count: 1153 | Serialization Format: cdr
+                   Topic: /vehicle/imu | Type: sensor_msgs/msg/Imu | Count: 5764 | Serialization Format: cdr
+                   Topic: /vehicle/odom | Type: nav_msgs/msg/Odometry | Count: 5766 | Serialization Format: cdr
+                   Topic: /vehicle/scan | Type: sensor_msgs/msg/LaserScan | Count: 576 | Serialization Format: cdr
+Services:          0
+Service information: 
+Actions:           0
+Action information: 

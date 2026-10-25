@@ -1,7 +1,8 @@
 # Использование ИИ
 
-- Использован ИИ: да, QWen3.8-Omni-Flash.
-- Затронутые файлы: `ROS2/src/course_description/urdf/vehicle.urdf.xacro`, `ROS2/src/course_description/test/test_urdf_structure.py`, `ROS2/src/course_description/launch/state_publisher.launch.py`, `ROS2/evidence/pr06/frames.md`
-- Помощь: 
-  - извлечение размеров, масс, инерций и поз из предоставленной SDF-модели;
-  - объяснение отличия /tf и /tf_static
+- Использован ИИ: да, Qwen3.7.
+- Затронутые файлы: `src/course_simulation/launch/simulation.launch.py`, `src/course_simulation/course_simulation/ackermann_adapter.py`, `src/course_simulation/course_simulation/odom_adapter.py`, `src/course_simulation/test/test_ackermann_adapter.py`, `src/course_simulation/test/test_odom_adapter.py`
+- Помощь:
+  - разбор архитектуры Gazebo, `ros_gz_bridge` и разницы между bridge (переводчик) и adapter (инженер по безопасности);
+  - написание адаптеров `ackermann_adapter` (валидация, clamping, кинематика Аккермана) и `odom_adapter` (нормализация фреймов + публикация TF `odom → base_link`);
+  - объяснение `use_sim_time`, `/clock` и флага `--use-sim-time` при записи bag;

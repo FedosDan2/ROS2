@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "practice_id": "PR07",
+  "commit": "SHA_КОММИТА_РЕАЛИЗАЦИИ",
+  "course_kit": {
+    "version": "v1-w07",
+    "archive_sha256": "SHA_АРХИВА_COURSE_KIT_W07"
+  },
+  "commands": [
+    "source /opt/ros/lyrical/setup.bash",
+    "colcon build --symlink-install --packages-select course_simulation",
+    "source install/setup.bash",
+    "python3 -m pytest src/course_simulation/test -v > evidence/pr07/tests.txt 2>&1",
+    "export GZ_SIM_RESOURCE_PATH=$PWD/src/course_simulation/models",
+    "ros2 launch course_simulation simulation.launch.py world:=$PWD/src/course_simulation/worlds/mcity-minimal.sdf bridge_config:=$PWD/src/course_simulation/config/bridge.yaml headless:=true 2>&1 | tee evidence/pr07/headless.txt",
+    "ros2 topic echo /clock --once",
+    "ros2 topic pub -1 /drive/safe ackermann_msgs/msg/AckermannDriveStamped '{header: auto, drive: {speed: 0.5, steering_angle: 0.2}}'",
+    "ros2 topic echo /vehicle/gz_cmd_vel --once",
+    "timeout 3s gz topic -e -t /model/course_ackermann/cmd_vel",
+    "ros2 run tf2_ros tf2_echo odom base_link --ros-args -p use_sim_time:=true",
+    "timeout 35s ros2 bag record --storage mcap --use-sim-time -o fixtures/pr07-sensors --topics /vehicle/camera/image_raw /vehicle/scan /vehicle/imu /vehicle/odom /tf /tf_static /clock",
+    "ros2 bag info fixtures/pr07-sensors > evidence/pr07/bag-info.txt 2>&1"
+  ],
+  "tests": [
+    {"name": "test_copyright", "status": "skipped"},
+    {"name": "test_flake8", "status": "passed"},
+    {"name": "test_pep257", "status": "passed"},
+    {"name": "test_xmllint", "status": "passed"},
+    {"name": "test_straight_motion", "status": "passed"},
+    {"name": "test_turning_motion", "status": "passed"},
+    {"name": "test_zero_speed", "status": "passed"},
+    {"name": "test_clamping_speed_and_angle", "status": "passed"},
+    {"name": "test_nan_speed", "status": "passed"},
+    {"name": "test_inf_steering", "status": "passed"},
+    {"name": "test_stale_command", "status": "passed"},
+    {"name": "test_fresh_command", "status": "passed"},
+    {"name": "test_frame_normalization", "status": "passed"},
+    {"name": "test_data_preservation", "status": "passed"},
+    {"name": "test_stamp_preservation", "status": "passed"}
+  ],
+  "defect": {
+    "reproducer": "cp src/course_simulation/config/bridge.yaml src/course_simulation/config/bridge_broken.yaml; sed -i 's/direction: GZ_TO_ROS/direction: ROS_TO_GZ/' src/course_simulation/config/bridge_broken.yaml; ros2 launch course_simulation simulation.launch.py bridge_config:=$PWD/src/course_simulation/config/bridge_broken.yaml headless:=true; timeout 3s ros2 topic echo /vehicle/imu --once",
+    "root_cause": "в bridge.yaml изменено направление для IMU с GZ_TO_ROS на ROS_TO_GZ. Мост создаёт ROS-издателя, но не подписывается на Gazebo-топик, поэтому данные от сенсора не поступают в ROS.",
+    "proof_after": "восстановлено правильное direction: GZ_TO_ROS в bridge.yaml; ros2 topic echo /vehicle/imu --once возвращает данные"
+  },
+  "claims": {
+    "public_tests_passed": true,
+    "defect_reproduced": true,
+    "defect_fixed": true,
+    "headless_verified": true,
+    "recording_verified": true,
+    "odometry_tf_owned": true
+  },
+  "time": {
+    "contact_academic_hours": 2,
+    "self_study_hours": 3
+  },
+  "ai_used": true
+}

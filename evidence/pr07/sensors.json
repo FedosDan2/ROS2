@@ -1,0 +1,35 @@
+{
+  "camera": {
+    "topic": "/vehicle/camera/image_raw",
+    "type": "sensor_msgs/msg/Image",
+    "frame_id": "camera_link",
+    "time_source": "/clock",
+    "claimed_hz": 20.0,
+    "measured_hz": 20.0
+  },
+  "lidar": {
+    "topic": "/vehicle/scan",
+    "type": "sensor_msgs/msg/LaserScan",
+    "frame_id": "lidar_link",
+    "time_source": "/clock",
+    "claimed_hz": 10.0,
+    "measured_hz": 9.97
+  },
+  "imu": {
+    "topic": "/vehicle/imu",
+    "type": "sensor_msgs/msg/Imu",
+    "frame_id": "imu_link",
+    "time_source": "/clock",
+    "claimed_hz": 100.0,
+    "measured_hz": 100.0
+  },
+  "odom": {
+    "topic": "/vehicle/odom",
+    "type": "nav_msgs/msg/Odometry",
+    "frame_id": "odom",
+    "child_frame_id": "base_link",
+    "time_source": "/clock",
+    "claimed_hz": 50.0,
+    "measured_hz": 100.1
+  }
+}
